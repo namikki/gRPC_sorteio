@@ -34,43 +34,18 @@ class SorteioServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.SolicitarNumero = channel.unary_unary(
-                '/SorteioService/SolicitarNumero',
+        self.IniciarSorteio = channel.unary_stream(
+                '/SorteioService/IniciarSorteio',
                 request_serializer=sorteio__pb2.Empty.SerializeToString,
-                response_deserializer=sorteio__pb2.NumeroResponse.FromString,
-                _registered_method=True)
-        self.SolicitarNumeros = channel.unary_unary(
-                '/SorteioService/SolicitarNumeros',
-                request_serializer=sorteio__pb2.SolicitarRequest.SerializeToString,
-                response_deserializer=sorteio__pb2.SorteioResponse.FromString,
-                _registered_method=True)
-        self.ReiniciarOuEncerrar = channel.unary_unary(
-                '/SorteioService/ReiniciarOuEncerrar',
-                request_serializer=sorteio__pb2.OpcaoRequest.SerializeToString,
-                response_deserializer=sorteio__pb2.RespostaFinal.FromString,
+                response_deserializer=sorteio__pb2.NumeroSorteado.FromString,
                 _registered_method=True)
 
 
 class SorteioServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def SolicitarNumero(self, request, context):
-        """Solicitar um número inicial
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def SolicitarNumeros(self, request, context):
-        """Solicitar números do sorteio
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def ReiniciarOuEncerrar(self, request, context):
-        """Reiniciar o sorteio ou encerrar
-        """
+    def IniciarSorteio(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -78,20 +53,10 @@ class SorteioServiceServicer(object):
 
 def add_SorteioServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'SolicitarNumero': grpc.unary_unary_rpc_method_handler(
-                    servicer.SolicitarNumero,
+            'IniciarSorteio': grpc.unary_stream_rpc_method_handler(
+                    servicer.IniciarSorteio,
                     request_deserializer=sorteio__pb2.Empty.FromString,
-                    response_serializer=sorteio__pb2.NumeroResponse.SerializeToString,
-            ),
-            'SolicitarNumeros': grpc.unary_unary_rpc_method_handler(
-                    servicer.SolicitarNumeros,
-                    request_deserializer=sorteio__pb2.SolicitarRequest.FromString,
-                    response_serializer=sorteio__pb2.SorteioResponse.SerializeToString,
-            ),
-            'ReiniciarOuEncerrar': grpc.unary_unary_rpc_method_handler(
-                    servicer.ReiniciarOuEncerrar,
-                    request_deserializer=sorteio__pb2.OpcaoRequest.FromString,
-                    response_serializer=sorteio__pb2.RespostaFinal.SerializeToString,
+                    response_serializer=sorteio__pb2.NumeroSorteado.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -105,7 +70,7 @@ class SorteioService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def SolicitarNumero(request,
+    def IniciarSorteio(request,
             target,
             options=(),
             channel_credentials=None,
@@ -115,66 +80,12 @@ class SorteioService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(
+        return grpc.experimental.unary_stream(
             request,
             target,
-            '/SorteioService/SolicitarNumero',
+            '/SorteioService/IniciarSorteio',
             sorteio__pb2.Empty.SerializeToString,
-            sorteio__pb2.NumeroResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def SolicitarNumeros(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/SorteioService/SolicitarNumeros',
-            sorteio__pb2.SolicitarRequest.SerializeToString,
-            sorteio__pb2.SorteioResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def ReiniciarOuEncerrar(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/SorteioService/ReiniciarOuEncerrar',
-            sorteio__pb2.OpcaoRequest.SerializeToString,
-            sorteio__pb2.RespostaFinal.FromString,
+            sorteio__pb2.NumeroSorteado.FromString,
             options,
             channel_credentials,
             insecure,
