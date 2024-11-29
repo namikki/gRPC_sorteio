@@ -1,37 +1,40 @@
 import grpc
 import sorteio_pb2
 import sorteio_pb2_grpc
+import random
+
+def solicitar_bingo(stub):
+    # Gera uma nova cartela com 5 números aleatórios
+    cartela = random.sample(range(1, 100), 5)
+    print(f"\nSua nova cartela: {cartela}")
+    print("Aguardando números sorteados...\n")
+
+    # Solicita os números sorteados ao servidor
+    response_stream = stub.IniciarSorteio(sorteio_pb2.Empty())
+
+    # Processa os números recebidos em tempo real
+    for numero_sorteado in response_stream:
+        print(f"Número sorteado: {numero_sorteado.numero}")
+
+        if numero_sorteado.numero in cartela:
+            print(f"-> Bingo! O número {numero_sorteado.numero} está na sua cartela!")
+
+    print("\nSorteio encerrado!\n")
 
 def main():
-    channel = grpc.insecure_channel("localhost:50051")
-    stub = sorteio_pb2_grpc.SorteioServiceStub(channel)
+    # Conecta ao servidor gRPC
+    with grpc.insecure_channel('localhost:50051') as channel:
+        stub = sorteio_pb2_grpc.SorteioServiceStub(channel)
 
-    # Solicitar número inicial
-    numero_inicial = stub.SolicitarNumero(sorteio_pb2.Empty()).numero
-    print(f"Seu número inicial: {numero_inicial}")
+        while True:
+            # Inicia um novo bingo
+            solicitar_bingo(stub)
 
-    tentativas = 5
-    while tentativas > 0:
-        response = stub.SolicitarNumeros(sorteio_pb2.SolicitarRequest(
-            numero_cliente=numero_inicial,
-            tentativas_restantes=tentativas
-        ))
-        print(f"Números sorteados: {response.numeros_sorteados}")
-        if response.numero_encontrado:
-            print("Parabéns! Seu número foi sorteado!")
-            break
-        tentativas -= 1
-        print(f"Tentativas restantes: {tentativas}")
-    
-    if tentativas == 0:
-        print("Seu número não foi sorteado nas tentativas permitidas.")
-        opcao = input("Deseja tentar novamente com um novo número? (s/n): ")
-        if opcao.lower() == "s":
-            stub.ReiniciarOuEncerrar(sorteio_pb2.OpcaoRequest(reiniciar=True))
-            main()
-        else:
-            stub.ReiniciarOuEncerrar(sorteio_pb2.OpcaoRequest(reiniciar=False))
-            print("Encerrando o sorteio. Até logo!")
+            # Pergunta ao cliente se deseja outro bingo
+            opcao = input("Deseja iniciar outro bingo? (s/n): ").strip().lower()
+            if opcao != 's':
+                print("Obrigado por jogar! Até a próxima!")
+                break
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
