@@ -24,25 +24,17 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rsorteio.proto\"\x07\n\x05\x45mpty\" \n\x0eNumeroResponse\x12\x0e\n\x06numero\x18\x01 \x01(\x05\"H\n\x10SolicitarRequest\x12\x16\n\x0enumero_cliente\x18\x01 \x01(\x05\x12\x1c\n\x14tentativas_restantes\x18\x02 \x01(\x05\"G\n\x0fSorteioResponse\x12\x19\n\x11numeros_sorteados\x18\x01 \x03(\x05\x12\x19\n\x11numero_encontrado\x18\x02 \x01(\x08\"!\n\x0cOpcaoRequest\x12\x11\n\treiniciar\x18\x01 \x01(\x08\"!\n\rRespostaFinal\x12\x10\n\x08mensagem\x18\x01 \x01(\t2\xab\x01\n\x0eSorteioService\x12*\n\x0fSolicitarNumero\x12\x06.Empty\x1a\x0f.NumeroResponse\x12\x37\n\x10SolicitarNumeros\x12\x11.SolicitarRequest\x1a\x10.SorteioResponse\x12\x34\n\x13ReiniciarOuEncerrar\x12\r.OpcaoRequest\x1a\x0e.RespostaFinalb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rsorteio.proto\" \n\x0eNumeroSorteado\x12\x0e\n\x06numero\x18\x01 \x01(\x05\"\x07\n\x05\x45mpty2=\n\x0eSorteioService\x12+\n\x0eIniciarSorteio\x12\x06.Empty\x1a\x0f.NumeroSorteado0\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'sorteio_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_EMPTY']._serialized_start=17
-  _globals['_EMPTY']._serialized_end=24
-  _globals['_NUMERORESPONSE']._serialized_start=26
-  _globals['_NUMERORESPONSE']._serialized_end=58
-  _globals['_SOLICITARREQUEST']._serialized_start=60
-  _globals['_SOLICITARREQUEST']._serialized_end=132
-  _globals['_SORTEIORESPONSE']._serialized_start=134
-  _globals['_SORTEIORESPONSE']._serialized_end=205
-  _globals['_OPCAOREQUEST']._serialized_start=207
-  _globals['_OPCAOREQUEST']._serialized_end=240
-  _globals['_RESPOSTAFINAL']._serialized_start=242
-  _globals['_RESPOSTAFINAL']._serialized_end=275
-  _globals['_SORTEIOSERVICE']._serialized_start=278
-  _globals['_SORTEIOSERVICE']._serialized_end=449
+  _globals['_NUMEROSORTEADO']._serialized_start=17
+  _globals['_NUMEROSORTEADO']._serialized_end=49
+  _globals['_EMPTY']._serialized_start=51
+  _globals['_EMPTY']._serialized_end=58
+  _globals['_SORTEIOSERVICE']._serialized_start=60
+  _globals['_SORTEIOSERVICE']._serialized_end=121
 # @@protoc_insertion_point(module_scope)
