@@ -1,37 +1,11 @@
 syntax = "proto3";
 
 service SorteioService {
-  // Solicitar um número inicial
-  rpc SolicitarNumero (Empty) returns (NumeroResponse);
-
-  // Solicitar números do sorteio
-  rpc SolicitarNumeros (SolicitarRequest) returns (SorteioResponse);
-
-  // Reiniciar o sorteio ou encerrar
-  rpc ReiniciarOuEncerrar (OpcaoRequest) returns (RespostaFinal);
+  rpc IniciarSorteio(Empty) returns (stream NumeroSorteado);
 }
 
-// Tipos de mensagem
-message Empty {}
-
-message NumeroResponse {
+message NumeroSorteado {
   int32 numero = 1;
 }
 
-message SolicitarRequest {
-  int32 numero_cliente = 1;
-  int32 tentativas_restantes = 2;
-}
-
-message SorteioResponse {
-  repeated int32 numeros_sorteados = 1;
-  bool numero_encontrado = 2;
-}
-
-message OpcaoRequest {
-  bool reiniciar = 1;
-}
-
-message RespostaFinal {
-  string mensagem = 1;
-}
+message Empty {}
