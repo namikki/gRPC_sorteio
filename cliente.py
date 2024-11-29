@@ -3,6 +3,7 @@ import sorteio_pb2
 import sorteio_pb2_grpc
 import random
 
+# Função para solicitar os números sorteados ao servidor
 def solicitar_bingo(stub):
     # Gera uma nova cartela com 5 números aleatórios
     cartela = random.sample(range(1, 100), 5)
@@ -21,6 +22,7 @@ def solicitar_bingo(stub):
 
     print("\nSorteio encerrado!\n")
 
+# Função principal para interagir com o cliente
 def main():
     # Conecta ao servidor gRPC
     with grpc.insecure_channel('localhost:50051') as channel:
