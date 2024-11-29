@@ -28,7 +28,7 @@ python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. sorteio.proto
 ```
 **Explicação dos parâmetros:**
 
-``-I=protos``: Define o diretório onde o arquivo ``.proto`` está localizado.
+``-I.``: Define o diretório onde o arquivo ``.proto`` está localizado.
 
 ``--python_out=.``: Gera as classes de mensagens ``(sorteio_pb2.py)``.
 
